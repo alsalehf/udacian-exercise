@@ -8,7 +8,7 @@ class Udacian:
         self.status = status
 
     def print_udacian(self):
-        print(self.name + " is enrolled in " + self.enrollement[0] + " " + self.enrollement[1] + ". He/She is " + self.status)
+        print(self.name + " is enrolled in " + self.city + " studying " + self.nanodegree + " with Ms. " + self.enrollement[0] +",He/She is " + self.status)
 
 
 Fatima = Udacian("Fatima","Dammam",["Elham","am"],"Full Stack","On Track")
