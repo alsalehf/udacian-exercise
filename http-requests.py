@@ -31,9 +31,37 @@ form = '''<!DOCTYPE html>
 class MessageHandler(BaseHTTPRequestHandler):
     def do_POST(self):
     	#Submit the form
+        length = int(self.headers.get('Content-length', 0))
+
+        # Read and parse the post data
+        data = self.rfile.read(length).decode()
+        name = parse_qs(data)["name"][0]
+        city = parse_qs(data)["city"][0]
+        enrollment = parse_qs(data)["enrollment"][0]
+        status = parse_qs(data)["status"][0]
+        nanodegree = parse_qs(data)["nanodegree"][0]
+
+        message = name + " is enrolled in " + city + " studying " + nanodegree + " with Ms. " + enrollment + ". She is " + status
+        self.send_response(200)
+        self.send_header('Content-type', 'text/html; charset=utf-8')
+        self.end_headers()
+        self.wfile.write(form.format(message).encode())
+
+
+
 
     def do_GET(self):
     	#get the info and display it
+         # First, send a 200 OK response.
+        self.send_response(200)
+
+        # Then send headers.
+        self.send_header('Content-type', 'text/html; charset=utf-8')
+        self.end_headers()
+
+        # Send the form with the message in it.
+
+        self.wfile.write(form.encode())
 
 if __name__ == '__main__':
     server_address = ('', 8000)
